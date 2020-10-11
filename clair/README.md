@@ -27,7 +27,7 @@ Note: The very long image name for clair-local-scan was shortened above.
 
 Now, you have everything up and running to be able to scan local images using clair-scanner from https://github.com/arminc/clair-scanner
 
-One thing to note, Clair uses an API and the clair-local-scan needs to connect to that API to get scans done.  The easiest way using the setup above is to just use your computer's IP address. However, you will need to figure that out for yourself since it could be almost any valid IP address. If, for example, the IP of your computer was 10.1.1.57, you would use a command like:
+One thing to note, Clair uses an API and the clair-local-scan needs to connect to that API to get scans done.  The easiest way using the setup above is to just use your computer's IP address. However, you will need to figure that out for yourself since it could be almost any valid IP address. If, for example, the IP of your computer was 10.1.1.57 and you had clair-scanning in the current directory, you would use a command like:
 
 ```
 ./clair-scanner --ip=10.1.1.57 example/app:1.6.7
@@ -35,14 +35,14 @@ One thing to note, Clair uses an API and the clair-local-scan needs to connect t
 
 Note: The container image listed above "example/app:1.6.7" is just a placeholder and should be change to the actual container image you want to scan.
 
-Another way to specify the IP address of the Docker bridge gateway which can also vary per Docker runtime installation. To determine the IP for the Docker bridge gateway, run the command below:
+Another way to specify the IP address for the Clair API is to use the Docker bridge gateway which can also vary per Docker runtime installation. To determine the IP for the Docker bridge gateway, run the command below: (just the first line is the command)
 
 ```
 docker network inspect bridge --format "{{range .IPAM.Config}}{{.Gateway}}{{end}}"
 172.17.0.1
 ```
 
-In the case above, the IP 172.17.0.1 can be used to connect to the Clair scanner.  So, the command to scan an image would be:
+In the example above, the IP 172.17.0.1 can be used to connect to the Clair scanner.  So, the command to scan an image would be:
 
 ```
 ./clair-scanner --ip=172.17.0.1 example/app:1.6.7
